@@ -13,9 +13,14 @@ export type CartState = {
     cart: CartItem[]
 }
 
+const initialCart = (): CartItem[] => {
+    const localStorageCart = localStorage.getItem('cart')
+    return localStorageCart ? JSON.parse(localStorageCart) : []
+};
+
 export const initialState: CartState = {
     data: db,
-    cart: []
+    cart: initialCart()
 }
 
 const MAX_ITEMS = 5;
@@ -75,7 +80,7 @@ export const cartReducer = (
         });
         return {
             ...state,
-            cart 
+            cart
         }
         return {
             ...state
@@ -94,14 +99,15 @@ export const cartReducer = (
         });
         return {
             ...state,
-            cart 
+            cart
         }
     }
 
     if (action.type === "clear-cart") {
 
         return {
-            ...state
+            ...state,
+            cart: []
         }
     }
 
