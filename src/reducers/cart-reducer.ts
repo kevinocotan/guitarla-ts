@@ -18,7 +18,7 @@ export const initialState: CartState = {
     cart: []
 }
 
-const MAX_ITEMS = 15;
+const MAX_ITEMS = 5;
 const MIN_ITEMS = 1;
 
 export const cartReducer = (
@@ -57,10 +57,9 @@ export const cartReducer = (
 
     if (action.type === "remove-from-cart") {
         const cart = state.cart.filter(item => item.id !== action.payload.id)
-
         return {
             ...state,
-            cart 
+            cart
         }
     }
 
@@ -72,9 +71,18 @@ export const cartReducer = (
     }
 
     if (action.type === "increase-quantity") {
-
+        const cart = state.cart.map((item) => {
+            if (item.id === action.payload.id && item.quantity < MAX_ITEMS) {
+                return {
+                    ...item,
+                    quantity: item.quantity + 1,
+                };
+            }
+            return item;
+        });
         return {
-            ...state
+            ...state,
+            cart 
         }
     }
 
