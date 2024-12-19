@@ -36,7 +36,7 @@ export const cartReducer = (
             updatedCart = state.cart.map(item => {
                 if (item.id === action.payload.item.id) {
                     if (item.quantity < MAX_ITEMS) {
-                        return { ...item, quantity: item.quantity + 1}
+                        return { ...item, quantity: item.quantity + 1 }
                     } else {
                         return item
                     }
@@ -56,9 +56,11 @@ export const cartReducer = (
     }
 
     if (action.type === "remove-from-cart") {
+        const cart = state.cart.filter(item => item.id !== action.payload.id)
 
         return {
-            ...state
+            ...state,
+            cart 
         }
     }
 
