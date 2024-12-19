@@ -22,6 +22,7 @@ export const cartReducer = (
     state: CarState = initialState,
     action: CartActions
 ) => {
+    
     if (action.type === "add-to-cart") {
 
         return {
